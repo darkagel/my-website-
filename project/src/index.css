@@ -1,0 +1,169 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply antialiased;
+  }
+}
+
+@layer components {
+  .glass {
+    @apply bg-white/10 backdrop-blur-md border border-white/20 relative;
+  }
+  
+  .glass::before {
+    content: '';
+    @apply absolute inset-0 bg-gradient-to-br from-red-500/5 via-black/0 to-black/10 rounded-[2rem] pointer-events-none;
+  }
+  
+  .squircle {
+    @apply rounded-[2rem];
+  }
+  
+  .btn-primary {
+    @apply px-6 py-3 bg-gradient-to-r from-red-600 to-violet-600 hover:from-red-700 hover:to-violet-700 
+           transition-all duration-300 rounded-full font-medium shadow-lg 
+           hover:shadow-red-500/20 hover:scale-105 transform;
+  }
+  
+  .card-hover {
+    @apply hover:scale-105 transition-transform duration-300 hover:shadow-lg hover:shadow-red-500/20;
+  }
+
+  .section-title {
+    @apply text-4xl font-bold text-center mb-12 relative;
+  }
+
+  .section-title::after {
+    content: '♠';
+    @apply absolute -bottom-6 left-1/2 transform -translate-x-1/2 text-red-500 text-2xl;
+  }
+
+  .poker-card-effect {
+    @apply before:content-['♠'] before:absolute before:-top-2 before:-left-2 before:text-red-500/20 before:text-4xl
+           after:content-['♦'] after:absolute after:-bottom-2 after:-right-2 after:text-violet-500/20 after:text-4xl;
+  }
+
+  /* Poker decorations */
+  .poker-decoration {
+    @apply fixed pointer-events-none select-none opacity-10 blur-[1px] animate-card-float;
+    z-index: -1;
+  }
+
+  .poker-decoration::before {
+    @apply absolute text-4xl;
+  }
+
+  /* Spades */
+  .poker-decoration:nth-child(4n+1)::before {
+    content: '♠';
+    @apply text-red-500;
+  }
+
+  /* Hearts */
+  .poker-decoration:nth-child(4n+2)::before {
+    content: '♥';
+    @apply text-violet-500;
+  }
+
+  /* Diamonds */
+  .poker-decoration:nth-child(4n+3)::before {
+    content: '♦';
+    @apply text-blue-500;
+  }
+
+  /* Clubs */
+  .poker-decoration:nth-child(4n+4)::before {
+    content: '♣';
+    @apply text-red-500;
+  }
+
+  /* Coins */
+  .poker-coin {
+    @apply fixed pointer-events-none select-none opacity-10 blur-[1px] animate-card-float;
+    content: '🪙';
+    z-index: -1;
+  }
+
+  /* Pop-up animations */
+  .pop-up-enter {
+    @apply opacity-0 scale-95 transform transition-all duration-300;
+  }
+
+  .pop-up-enter-active {
+    @apply opacity-100 scale-100;
+  }
+
+  /* Card shapes */
+  .card-shape {
+    @apply absolute w-12 h-12 opacity-20 pointer-events-none;
+    animation: float-around 20s linear infinite;
+  }
+
+  .review-card {
+    @apply glass squircle p-6 relative overflow-hidden;
+    animation: card-pop-in 0.5s ease-out forwards;
+  }
+
+  .game-card {
+    @apply glass squircle p-6 relative overflow-hidden;
+    animation: card-pop-in 0.6s ease-out forwards;
+  }
+
+  .tournament-card {
+    @apply glass squircle p-6 relative overflow-hidden;
+    animation: card-pop-in 0.7s ease-out forwards;
+  }
+}
+
+.hide-navbar {
+  transform: translateY(-100%);
+  transition: transform 0.3s ease-in-out;
+}
+
+.show-navbar {
+  transform: translateY(0);
+  transition: transform 0.3s ease-in-out;
+}
+
+/* Animation variations */
+@keyframes float-delay-1 {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-15px) rotate(5deg); }
+}
+
+@keyframes float-delay-2 {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-20px) rotate(-5deg); }
+}
+
+@keyframes float-delay-3 {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-10px) rotate(3deg); }
+}
+
+@keyframes float-around {
+  0% { transform: translate(0, 0) rotate(0deg); }
+  25% { transform: translate(100px, 50px) rotate(90deg); }
+  50% { transform: translate(0, 100px) rotate(180deg); }
+  75% { transform: translate(-100px, 50px) rotate(270deg); }
+  100% { transform: translate(0, 0) rotate(360deg); }
+}
+
+@keyframes card-pop-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.8) translateY(20px);
+  }
+  50% {
+    transform: scale(1.05) translateY(-5px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
